@@ -1,0 +1,31 @@
+.bg-col {
+  background-color: rgb(202, 200, 200);
+  color: #0e0d0d;
+}
+.col-space {
+  flex: 0 0 3px;
+}
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.divider {
+  height: 1px;
+  background-color: #535353;
+}
+.text-top {
+  font-weight: bold;
+  font-size: 15px;
+}
+.commments-size {
+  font-size: 13px;
+  width: 400px;
+}
+.example-full-width {
+  width: 100%
+}
+.post_profile_name {
+  font-weight: lighter;
+}

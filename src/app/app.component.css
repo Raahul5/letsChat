@@ -1,0 +1,71 @@
+.navbar-custom {
+    background-image: linear-gradient(to right, #58c5c0, #95f8eb, #cbf8fc, rgba(169, 197, 250, 0.863)
+    );
+    box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.1); 
+    /* border-bottom-left-radius: 30px; 
+    border-top-right-radius: 40px;  */
+}
+
+  .navbar-custom, .navbar-nav, .nav-items, .nav-link, .navbar{
+    color: black;  
+  }
+
+
+    .ubuntu-regular {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 30px;
+      }
+      
+      .ubuntu-regular-link {
+        font-family: "Ubuntu", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 20px;
+      }
+
+      /* .container_bor {
+       
+      
+        box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3), -10px 0 20px rgba(0, 0, 0, 0.3);
+      
+      } */
+
+      .container_bor {
+        position: relative;
+        padding: 20px;
+        background: white;
+        border: 1px solid #ddd;
+      }
+      
+      .container_bor::before,
+      .container_bor::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+      }
+      
+      .container_bor::before {
+        top: -10px; 
+        left: -10px; 
+        right: -10px; 
+        height: 10px; 
+        box-shadow: 0 -10px 15px -5px rgba(0, 0, 0, 0.3);
+      }
+      
+      .container_bor::after {
+        top: 0;
+        bottom: 0;
+        left: -10px; 
+        width: 10px; 
+        box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3); 
+      }
+      
+      .container_bor::before,
+      .container_bor::after {
+        right: -10px; 
+        box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3); 
+      }
+      
+      

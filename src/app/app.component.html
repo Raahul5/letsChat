@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm  navbar-custom ">
+  <div class="container">
+          <div class="col ubuntu-regular"> lets's chat </div>
+          <div class="col d-flex justify-content-end ubuntu-regular-link">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="register">Registration</a>
+                    </li>
+                    <li class="nav-item">
+                      <button class="nav-link" (click)="this.logout()">Logout</button>
+                    </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+  <div class="container container_bor">
+      
+      <router-outlet></router-outlet>
+</div>

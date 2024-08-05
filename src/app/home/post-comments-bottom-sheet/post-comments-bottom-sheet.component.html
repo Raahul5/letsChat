@@ -1,0 +1,27 @@
+<div class="row mt-2">
+
+    <form class=" example-form">
+        <mat-form-field class="example-full-width">
+            <img matPrefix src="../../assets/display.jpg" class="avatar">
+            <mat-label>Write a Comment...</mat-label>
+            <input matInput [formControl]="comments">
+            <mat-icon (click)="addComment()" matSuffix>question_answer</mat-icon>
+        </mat-form-field>
+    </form>
+</div>
+<mat-card>
+    <div *ngFor="let comments of comments_array">
+        
+            <div class="row mb-2 mt-2">
+                <div class="col col-space"> <img matPrefix src="../../../assets/display.jpg" class="avatar"></div>
+                <div class="col bg-col ">
+                    <div class="text-top mb-1">{{comments.comment_userName}}</div>
+                    <p class="commments-size">{{comments.comment_UserComment}}</p>
+                </div>
+    
+            </div>
+            <div class="divider"></div>
+    
+        
+    </div>
+</mat-card>
