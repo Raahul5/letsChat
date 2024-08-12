@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {HttpClientModule, provideHttpClient, withFetch} from '@angular/common/http'
 import {HomeModule} from '../app/home/home.module';
+import { CapitalizeFirstPipe } from './capitalize-first.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CapitalizeFirstPipe
   ],
   imports: [
     HomeModule,

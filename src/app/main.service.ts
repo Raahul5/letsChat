@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import e from 'express';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +20,7 @@ export class MainService {
     'Cache-Control': 'no-cache',
   });
 
-//    header = new HttpHeaders({
-//     'Content-Type':'application/json',
- 
-// });
+
   postData(fromData:any, url:any):Observable<any>{
     const headers = new HttpHeaders();
     return this.http
@@ -43,6 +41,9 @@ export class MainService {
       catchError(this.handleError)
     )
   }
+
+
+ 
   getData(formData:any, url:any ):Observable<any>{
     const headers = new HttpHeaders();
     console.log(url)
