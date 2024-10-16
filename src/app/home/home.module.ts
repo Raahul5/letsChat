@@ -13,11 +13,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PostCommentsBottomSheetComponent } from './post-comments-bottom-sheet/post-comments-bottom-sheet.component';
+import { SampleComponent } from './sample/sample.component';
 @NgModule({
   declarations: [
     HomeComponent,
     HomeDialogComponent,
     PostCommentsBottomSheetComponent,
+    SampleComponent,
   
   ],
   imports: [

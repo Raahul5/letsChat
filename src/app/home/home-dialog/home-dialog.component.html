@@ -1,36 +1,62 @@
+<div class="size">
+    <mat-dialog-content class="content-bg">
+        <div class="row">
+            <div class="col-md-10 col-sm-4">
+                <h1 class="postText">Select Photo</h1>
+            </div>
+            <div class="col-md col-sm">
+                <button class="close-btn" mat-flat-button (click)="closeDialogBox()">
+
+                    <mat-icon>clear</mat-icon>
+
+                </button>
+            </div>
+
+        </div>
 
 
 
-<mat-dialog-content>
-    <mat-card>
-        <mat-card-content>
-            <div class="row ">
-                <div class="col-md-4 col-sm-5">
-                    <input 
-                    type="file" 
-                    class="pill-btn file-input" 
-                    (change)="onselectFile($event)" 
-                    mat-raised-button placeholder="+ Photos" 
-                    /> 
+        <mat-card>
+            <mat-card-content>
+                <div class="row ">
+                    <div class="col-md-2 col-sm">
+                        <button class="fileUpload-btn" mat-raised-button (click)="triggerFileInput(fileInput)">
+
+                            <mat-icon>
+                                add_a_photo
+                            </mat-icon>
+
+                        </button>
+
+                        <input #fileInput accept="image/*" type="file" class="pill-btn file-input"
+                            (change)="onselectFile($event)" mat-raised-button placeholder="+ Photos" hidden />
+                    </div>
+
+                    <div class="col-md col-sm" *ngIf="imagePreview">
+                        <img [src]="imagePreview" alt="Image Preview">
+                    </div>
+
                 </div>
-                
-            </div>
-            
-            <div class="row mt-3">
-                <mat-form-field>
-                    <textarea matInput placeholder="Write a post to share..."></textarea>
-                </mat-form-field>
-                
-            </div>
-        </mat-card-content>
-      </mat-card>
 
-      <mat-dialog-actions>
-        <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">Upload</button>
-        <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">No Thanks</button>
-      </mat-dialog-actions>
-</mat-dialog-content>
+                <div class="row mt-3">
+
+                    <textarea class="custom-textbox custom-textbox:focus" matInput
+                        placeholder="Write a post to share..."></textarea>
+
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div class="row mt-4">
+            <mat-dialog-actions>
+                <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">Upload</button>
+                <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">post</button>
+            </mat-dialog-actions>
+        </div>
+
+    </mat-dialog-content>
+</div>
+
 <div class="overlay" *ngIf="isLoading">
     <mat-spinner></mat-spinner>
 </div>
-

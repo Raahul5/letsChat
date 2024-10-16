@@ -39,7 +39,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -111,6 +113,9 @@
     }
   },
   "cli": {
-    "analytics": "ce8aa00a-437b-4901-96fb-5693d3af4483"
+    "analytics": "4d77000f-1d56-428f-8b8a-a150929d1d94",
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }

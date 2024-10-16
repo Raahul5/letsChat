@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,11 +22,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private loginFormbuilder: FormBuilder, private apiservice: MainService, private snackBar: MatSnackBar, private router:Router) {}
+
+  constructor(
+    private loginFormbuilder: FormBuilder, 
+    private apiservice: MainService, 
+    private snackBar: MatSnackBar, 
+    private router:Router,
+
+ ) {
+    
+    }
 
   
   ngOnInit(): void {
-
+   
     this.loginForm = this.loginFormbuilder.group({
       login_email: new FormControl('', [Validators.required, Validators.email] ),
       login_password : new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)])

@@ -54,6 +54,13 @@
     </mat-card>
 </div>
 
+<div *ngIf="loading$ | async">Loading...</div>
+    <div *ngIf="error$ | async as error">{{ error }}</div>
+    <ul *ngIf="post$ | async as posts">
+      <li *ngFor="let post of posts">
+        {{ post.title }}
+      </li>
+    </ul>
 <!-- Action Items design -->
 <!-- <div *ngIf="this.comments_visibility" class="row offset-2 mt-2">
 

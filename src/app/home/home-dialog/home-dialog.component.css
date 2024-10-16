@@ -10,3 +10,67 @@
     background: rgba(0, 0, 0, 0.3);
     z-index: 1000;
   }
+
+
+  .size{
+    width: 700px;
+    height:480px;
+    background-color:rgba(255, 255, 255, 0.774);
+  }
+
+  .file-input {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .fileUpload-btn{
+   height: 70px;
+   width: 85px;
+  }
+
+  .close-btn{
+    height: 50px;
+    width: 50px;
+
+  }
+
+  .postText{
+    font-size: xx-large;
+    color: rgb(red, green, blue);
+    font-weight:900;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  }
+
+  .custom-textbox {
+    width: 600px;               
+    height: 150px;              
+    padding: 15px;               
+    font-size: 16px;             
+    border: 2px solid rgba(0, 0, 0, 0.473);   
+    border-radius: 18px;          
+    resize: none;                
+    outline: none;               
+}
+
+.custom-textbox:focus {
+  border-color: #008CBA;      
+  box-shadow: 0 0 8px rgba(0, 140, 186, 0.6);
+}
+
+.pill-btn{
+  padding: 10px 20px;              
+  font-size: 15px;                
+  color:black;                      
+  border: none;                     
+  border-radius: 5px;             
+  cursor: pointer;                  
+  box-shadow: 0 4px 8px rgba(165, 164, 164, 0.4), 
+                0 -4px 8px rgba(165, 164, 164, 0.4), 
+                -4px 0 8px rgba(165, 164, 164, 0.4),
+                4px 0 8px rgba(165, 164, 164, 0.4);  
+  transition: box-shadow 0.3s ease;  
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

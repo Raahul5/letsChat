@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import e from 'express';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,8 +42,25 @@ export class MainService {
     )
   }
 
+  getUserDetails(url:any,id:any):Observable<any>{
+   console.log(id +"  From Service")
+    const headers = new HttpHeaders();
+    return this.http
+    .post<any>(this.apiurl+url,id , {headers})
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
 
- 
+sampleGetData(url:any):Observable<any>{
+
+  const headers = new HttpHeaders();
+  return this.http
+  .get<any>(this.apiurl+url,{headers})
+  .pipe(
+    catchError(this.handleError)
+  )
+}
   getData(formData:any, url:any ):Observable<any>{
     const headers = new HttpHeaders();
     console.log(url)
@@ -104,10 +121,11 @@ export class MainService {
       catchError(this.handleError)
     ))
   }
-  public get 
-  loggedIn(): boolean {
+  public get loggedIn(): boolean {
      if (isPlatformBrowser(this.platformId)) {
+    
       if(localStorage.getItem('access_token')){
+       
         return true;
       }
  
@@ -115,13 +133,17 @@ export class MainService {
     return false
   }
   private handleError(error: HttpErrorResponse): Observable<never> {
+   
     let errorMessage = '';
+
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
-    } else {
+    } 
+   else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     console.error(errorMessage); 
     return throwError(errorMessage);
+
   }
 }
