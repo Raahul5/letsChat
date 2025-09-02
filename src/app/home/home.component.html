@@ -1,66 +1,86 @@
-<div class="row offset-3">
-    <mat-card>
-        <mat-card-content>
-            <div class="row ">
-                <div class="col-md-4 col-sm-5">
-                    <button type="button" class="pill-btn" mat-raised-button (click)="openDialog()"> + Photos</button>
-                </div>
-                <div class="col-md-3 col-sm-5">
-                    <button type="button" class="pill-btn"> + Post</button>
-                </div>
+<div class="row offset-2">
+  <mat-card class="post-card">
+    <div class="post-top d-flex align-items-center">
+      <img [src]="(this.profileImgString | async) || '../../assets/default.jpg'" alt="Profile" class="profile-pic" />
+      <input class="post-input" placeholder="Start a post" readonly />
+
+    </div>
+
+    <div class="post-actions d-flex justify-content-around mt-3">
+
+      <div class="action-item" (click)="openPostDialog()" tabindex="0" role="button" (keydown)="handleKeyDown($event)">
+        <mat-icon class="photo-icon">image</mat-icon>
+        <span>Photo</span>
+      </div>
+      <div class="action-item">
+        <mat-icon class="article-icon">subject</mat-icon>
+        <span>Write article</span>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+
+
+<router-outlet></router-outlet>
+
+<div *ngIf="loading$ | async">Loading...</div>
+<div *ngIf="error$ | async as error">{{ error }}</div>
+<ul *ngIf="post$ | async as userposts">
+  <ul *ngFor="let post of userposts">
+
+    <div class="row offset-2 mt-2">
+      <mat-card>
+        <mat-card-header>
+
+          <mat-card-title>
+           
+            <img [src]="post.userProfileUrl"  (error)="onImgError($event)"  class="avatar">
+
+            <div class="post-header">
+              <span class="post_profile_name">{{ post.userName }}</span><br>
+              <span class="post_date">
+                Posted on {{ post.postedDate | date:"longDate" }}
+
+              </span>
             </div>
 
-            <div class="row mt-3">
-                <textarea class="textarea" placeholder="Write a post to share..."></textarea>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
-<!-- *ngIf="this.login_status; else notLoggedInTemplate" -->
-<div class="row offset-2 mt-2">
-    <mat-card>
-        <mat-card-header>
-          
-            <mat-card-title>
-                <img src="../../assets/display.jpg"  class="avatar">
-           <span class="post_profile_name">Vignesh</span>  
-            </mat-card-title>
-        </mat-card-header>
+              
+          </mat-card-title>
         
+        </mat-card-header>
+
         <mat-card-content>
-            <img mat-card-image class="fixed-size-image"
-                src="../../assets/vig.jpeg">
+          <div class="mt-2">
+            <h2>{{post.postdescription}}</h2>
+          </div>
+          <img *ngIf="post.postImgUrl" mat-card-image class="fixed-size-image" [src]=post.postImgUrl>
         </mat-card-content>
 
         <mat-card-footer>
 
-            <mat-card-actions>
-                <div class="button_wrapper">
-                    <button  class="post_button" (click)="like_clicked()" [ngClass]=" {'like_button' : Like}" mat-fab extended>
-                        <mat-icon>{{this.like_icon}}</mat-icon>
-                        Like
-                        <small>{{this.likecounts}}</small>
-                      </button>
-                      <button mat-fab extended (click)="open_comments()" class="post_button">
-                        <mat-icon>chat</mat-icon>
-                        comments
-                      </button>
-                    
-                </div>
-                
+          <mat-card-actions>
+            <div class="button_wrapper">
+              <button class="post_button" (click)="like_clicked()" [ngClass]=" {'like_button' : Like}" mat-fab extended>
+                <mat-icon>{{this.like_icon}}</mat-icon>
+                Like
+                <small>{{this.likecounts}}</small>
+              </button>
+              <button mat-fab extended (click)="open_comments()" class="post_button">
+                <mat-icon>chat</mat-icon>
+                comments
+              </button>
 
-            </mat-card-actions>
+            </div>
+
+
+          </mat-card-actions>
         </mat-card-footer>
-    </mat-card>
-</div>
+      </mat-card>
+    </div>
 
-<div *ngIf="loading$ | async">Loading...</div>
-    <div *ngIf="error$ | async as error">{{ error }}</div>
-    <ul *ngIf="post$ | async as posts">
-      <li *ngFor="let post of posts">
-        {{ post.title }}
-      </li>
-    </ul>
+  </ul>
+</ul>
 <!-- Action Items design -->
 <!-- <div *ngIf="this.comments_visibility" class="row offset-2 mt-2">
 
@@ -73,13 +93,3 @@
         </mat-form-field>
 </form>
 </div> -->
-
-
-
-
-
-<!-- <ng-template #notLoggedInTemplate>
-    <div>
-      <p>You are not logged in. Please log in to continue.</p>
-    </div>
-  </ng-template> -->

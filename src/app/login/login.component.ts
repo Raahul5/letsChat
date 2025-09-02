@@ -10,8 +10,9 @@ import { CommonModule } from '@angular/common';
 import {MainService} from '../main.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
-
+import { Store } from '@ngrx/store';
+import * as user from '../store/action/post.action'
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
-    private loginFormbuilder: FormBuilder, 
-    private apiservice: MainService, 
-    private snackBar: MatSnackBar, 
-    private router:Router,
+    private readonly loginFormbuilder: FormBuilder, 
+    private readonly apiservice: MainService, 
+    private readonly snackBar: MatSnackBar, 
+    private readonly router:Router,
+    private readonly store:Store
 
  ) {
     
@@ -46,10 +48,20 @@ export class LoginComponent implements OnInit {
   validation(){
   
 if(this.loginForm.valid){
-  console.log(this.loginForm.value.login_email)
-  this.apiservice.login(this.loginForm.value, '/user/login').subscribe((response)=>{
+ let obj={
+  email : this.loginForm.value.login_email,
+  password:this.loginForm.value.login_password
+ }
+  this.apiservice.login(obj, '/user/login').subscribe((response)=>{
     if (response.status) {
-      console.log(response)
+      
+      localStorage.setItem("token",response.data);
+      const decodedToken : any = jwtDecode(response.data);
+     
+      localStorage.setItem("role",decodedToken.role)
+      this.store.dispatch(user.setUserID({id:decodedToken.sub}))
+
+      
       this.snackBar.open('Login Successfully','close',{
       duration: 5000, 
       horizontalPosition: 'right', 

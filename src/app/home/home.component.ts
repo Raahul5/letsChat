@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, model, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MainService } from '../main.service'
-import { HomeDialogComponent } from '../home/home-dialog/home-dialog.component'
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { PostCommentsBottomSheetComponent } from './post-comments-bottom-sheet/post-comments-bottom-sheet.component';
-import {loadPost} from '../store/action/post.action'
-import {selectPost,selectError,selectLoading} from '../store/selectors/post.selector'
-import {post} from '../store/model/post.model'
+import { loadPost} from '../store/action/post.action'
+import * as selector  from '../store/selectors/post.selector'
+import { Post } from '../store/model/post.model'
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { HomeDialogComponent } from './home-dialog/home-dialog.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,26 +19,26 @@ import { Observable } from 'rxjs';
 
 })
 export class HomeComponent implements OnInit {
-  readonly dialog = inject(MatDialog)
-  post$:Observable<post[]>
-  loading$:Observable<boolean>
-  error$:Observable<string|null>
-
+ 
 
   constructor(
-    private apiService: MainService,
+    private readonly apiService: MainService,
     public ModelDialog: MatDialog,
-    private bottom_sheet: MatBottomSheet,
-    private store:Store
+    private readonly bottom_sheet: MatBottomSheet,
+    private readonly store: Store
   ) {
-   this.post$=this.store.select(selectPost)
-   this.loading$=this.store.select(selectLoading)
-   this.error$=this.store.select(selectError)
+    this.post$ = this.store.select(selector.selectPost)
+    this.loading$ = this.store.select(selector.selectLoading)
+    this.error$ = this.store.select(selector.selectError)
+    this.profileImgString= this.store.select(selector.selectUserProfileImgString)
   }
 
 
-
-
+  readonly dialog = inject(MatDialog)
+  public post$: Observable<Post[]>
+  public loading$: Observable<boolean>
+  public error$: Observable<string | null>
+  public profileImgString:Observable<string>
   public login_status: boolean = false
   public comments_visibility: boolean = false
   public comments_section: boolean = false
@@ -46,28 +47,16 @@ export class HomeComponent implements OnInit {
   public like_icon: string;
   public likecounts: number = 0;
   comments = new FormControl('')
-
+  selected = 'Select Option'
 
 
   ngOnInit(): void {
+
     this.store.dispatch(loadPost())
-    // this.post$.subscribe(posts => {
-    //   console.log("Selector post", posts);
-    // });
     this.login_status = this.apiService.loggedIn
     this.like_icon = "favorite_border"
   }
 
-
-  openDialog(): void {
-    const dialogRef = this.ModelDialog.open(HomeDialogComponent,{disableClose:true})
-  }
-
-  comment() {
-
-    // this.comments_section=!this.comments_section
-
-  }
   open_comments() {
     this.bottom_sheet.open(PostCommentsBottomSheetComponent)
     this.comments_visibility = !this.comments_visibility
@@ -82,10 +71,7 @@ export class HomeComponent implements OnInit {
       this.like_icon = "favorite"
       this.likecounts++;
     }
-    const likesData = {
-      _id: "",
-      likes_counts: this.likecounts
-    }
+
     this.apiService.likesCount('/home/likeCounts', this.likecounts).subscribe((response) => {
       if (response.status) {
         console.log("Likes Updated")
@@ -93,7 +79,28 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  openPostDialog() {
 
+    this.ModelDialog.open(HomeDialogComponent, {
+      width: '700px',
+      data: { message: 'Open your post component' }
+    })
+
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.openPostDialog();
+      event.preventDefault();
+    }
+  }
+
+  onImgError(event:Event){
+    const target = event.target as HTMLImageElement
+      target.onerror = null;
+      target.src = '../assets/display.jpg';
+  }
+  
 
 }
 

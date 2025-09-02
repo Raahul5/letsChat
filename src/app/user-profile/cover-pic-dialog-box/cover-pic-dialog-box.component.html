@@ -1,0 +1,40 @@
+
+<div *ngIf="croppedImageUrl && !showCropper" class="cropped-preview">
+  <img [src]="croppedImageUrl" alt="Cropped Image" />
+</div>
+
+<div *ngIf="!imageChangedEvent && !croppedImageUrl && !showCropper" class="upload-section">
+  <div class="upload-box" 
+  (click)="fileInput.click()"   
+  (keydown.enter)="fileInput.click()"
+  (keydown.space)="fileInput.click()"
+  tabindex="0"
+  role="button">
+<mat-icon>file_upload</mat-icon>
+    <h1>Upload a {{this.coverWords}}</h1>
+    <p>"A good {{this.coverWords}} is worth a thousand impressions."</p>
+  </div>
+
+  <input
+    type="file"
+    accept="image/*"
+    #fileInput
+    (change)="onFileSelected($event)"
+    hidden
+  />
+
+ 
+</div>
+
+ <div *ngIf="showCropper" class="cropper-wrapper">
+  <img #imageElement [src]="imageChangedEvent" class="cropper-img" />
+  <button class="colorful-button apply-button" (click)="cropImage()">Apply</button>
+  <button class="colorful-button cancel-button" (click)="cancelCrop()">Cancel</button>
+</div>
+
+
+
+
+
+
+

@@ -1,15 +1,19 @@
-import { Injectable, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
-  private apiurl = 'http://localhost:4000'
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http:HttpClient) { }
+
+  private readonly subject = new Subject<string>
+
+  $data = this.subject.asObservable()
+  private readonly apiurl = 'http://localhost:8080'
+  constructor(@Inject(PLATFORM_ID) private readonly platformId: Object, private readonly http: HttpClient) { }
   header = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -20,130 +24,156 @@ export class MainService {
     'Cache-Control': 'no-cache',
   });
 
-
-  postData(fromData:any, url:any):Observable<any>{
+  getSomeData(url: any): Observable<any> {
     const headers = new HttpHeaders();
     return this.http
-    .post<any>(this.apiurl+url,fromData,{headers})
-    .pipe(
-      catchError(this.handleError)
-    )
+      .get<any>(url, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
-  login(fromData:any, url:any):Observable<any>{
+
+  postData(fromData: any, url: any): Observable<any> {
+
     const headers = new HttpHeaders();
     return this.http
-    .post<any>(this.apiurl+url,fromData,{headers})
-    .pipe(map(res=>{
-      console.log(res)
-      localStorage.setItem('access_token', res.token);
-      return res
-    }),
-      catchError(this.handleError)
-    )
+      .post<any>(this.apiurl + url, fromData, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
-
-  getUserDetails(url:any,id:any):Observable<any>{
-   console.log(id +"  From Service")
+  login(fromData: any, url: any): Observable<any> {
     const headers = new HttpHeaders();
     return this.http
-    .post<any>(this.apiurl+url,id , {headers})
-    .pipe(
-      catchError(this.handleError)
-    )
+      .post<any>(this.apiurl + url, fromData, { headers })
+      .pipe(map(res => {
+        return res
+      }),
+        catchError(this.handleError)
+      )
   }
 
-sampleGetData(url:any):Observable<any>{
+  getUserId(): string | null {
 
-  const headers = new HttpHeaders();
-  return this.http
-  .get<any>(this.apiurl+url,{headers})
-  .pipe(
-    catchError(this.handleError)
-  )
-}
-  getData(formData:any, url:any ):Observable<any>{
+    if (isPlatformBrowser(this.platformId) && typeof localStorage !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (!token) return null;
+
+      try {
+        const decoded: JWTPayload = jwtDecode(token);
+        return decoded.sub || null;
+      } catch (e) {
+        console.error('Invalid token', e);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  getUserDetails(url: any, id: any): Observable<any> {
+    console.log(id + "  From Service")
+    const headers = new HttpHeaders();
+    const params = new HttpParams().set('userid', id);
+    return this.http
+      .get<any>(this.apiurl + "/api" + url, { headers, params })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  fetchAllPost(url: any): Observable<any> {
+    const headers = new HttpHeaders();
+    return this.http
+      .get<any>(this.apiurl + url, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  getData(formData: any, url: any): Observable<any> {
     const headers = new HttpHeaders();
     console.log(url)
     return this.http
-    .get<any>(this.apiurl+url, {headers} )
-    .pipe(
-      catchError(this.handleError)
-    )
+      .get<any>(this.apiurl + url, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
-  check( url:any ):Observable<any>{
+  check(url: any): Observable<any> {
     console.log(url)
     return this.http
-    .get<any>(this.apiurl+url, {headers:this.header} )
-    .pipe(
-      catchError(this.handleError)
-    )
+      .get<any>(this.apiurl + url, { headers: this.header })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
-  uploadFIle( img : FormData, url : any ):Observable<any>{
+  uploadFIle(img: FormData, url: any): Observable<any> {
+    console.log(img)
     const headers = new HttpHeaders();
     return this.http
-    .post<any>(this.apiurl+url, img, {headers} )
-    .pipe(
-      catchError(this.handleError)
-    )
+      .post<any>(this.apiurl + url, img, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
-  getComments(url:any):Observable<any>{
-    const headers = new HttpHeaders();
-    return this.http
-    .get<any>(this.apiurl+url,{headers})
-    .pipe(
-      catchError(this.handleError)
-    )
-  }
 
-  addComments(url:any, comments:any):Observable<any>{
+
+  addComments(url: any, comments: any): Observable<any> {
 
     const headers = new HttpHeaders;
 
     return this.http
-    .post<any>(this.apiurl+url,comments,{headers})
-    .pipe(
-      catchError(this.handleError)
-    )
+      .post<any>(this.apiurl + url, comments, { headers })
+      .pipe(
+        catchError(this.handleError)
+      )
 
   }
 
-  likesCount(url:any,like_counts:any):Observable<any>{
+  likesCount(url: any, like_counts: any): Observable<any> {
     const headers = new HttpHeaders;
     return this.http
-    .patch<any>(this.apiurl+url, like_counts,{headers})
-    .pipe((
-      catchError(this.handleError)
-    ))
+      .patch<any>(this.apiurl + url, like_counts, { headers })
+      .pipe((
+        catchError(this.handleError)
+      ))
   }
+
+
   public get loggedIn(): boolean {
-     if (isPlatformBrowser(this.platformId)) {
-    
-      if(localStorage.getItem('access_token')){
-       
-        return true;
-      }
- 
+    return isPlatformBrowser(this.platformId) && !!localStorage.getItem('token');
   }
-    return false
-  }
-  private handleError(error: HttpErrorResponse): Observable<never> {
-   
+  private handleError(error: HttpErrorResponse): Observable<any> {
+
     let errorMessage = '';
 
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
-    } 
-   else {
+    }
+    else if (error.status === 409) {
+      return of({ status: false, message: error.error ?? 'User already exists' });
+    }
+    else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.error(errorMessage); 
-    return throwError(errorMessage);
+    console.error(errorMessage);
+    return throwError(() => errorMessage);
 
   }
+}
+
+interface JWTPayload {
+  sub: string;
+  role: string;
+  iat: number;
+  exp: number;
 }

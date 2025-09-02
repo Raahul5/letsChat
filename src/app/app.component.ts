@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {MainService} from '../app/main.service'
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { MainService } from '../app/main.service'
 import { Store } from '@ngrx/store';
 import * as user from './store/action/post.action'
-import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -11,27 +12,22 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AppComponent implements OnInit {
   title = 'jovial';
-  constructor(private apiservice:MainService, private store: Store){}
-public userid=1234;
-currentDate = new Date();
-ngOnInit(): void {
- if(this.apiservice.loggedIn) {
+  constructor(@Inject(PLATFORM_ID) private readonly platformId: Object,
+   private readonly apiservice: MainService, 
+   private readonly store: Store,
+  private readonly router:Router) { }
 
-var token = localStorage.getItem('access_token')
-if (token) {
-  const decodedToken : any = jwtDecode(token);
+  ngOnInit(): void {
+    
+    const userid = this.apiservice.getUserId();
+    if (userid) {
+      this.store.dispatch(user.setUserID({ id: userid }))
+    }
+  }
 
-  this.store.dispatch(user.setUserID({id:decodedToken.id}))
-} else {
-  console.error('No access token found in localStorage');
-}
- 
- }else{
-
-  console.log(false)
- }
-}
-  logout(){
-this.apiservice.logout()
+  logout() {
+    this.apiservice.logout()
+    this.router.navigate(['/login'])
+    
   }
 }

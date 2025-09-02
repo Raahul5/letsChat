@@ -1,0 +1,134 @@
+<div class="row mt-4">
+  <div class="offset-lg-3 col-4">
+    <h1 class="title">
+      Welcome {{userName$|async}}
+
+    </h1>
+  </div>
+
+</div>
+
+<div class="row  mt-4">
+
+  <div class="offset-lg-3 col-4">
+
+    <form [formGroup]= "profileFormGroup">
+      <mat-card class="form-shadow">
+        <mat-card-header>
+          <h1 class="header ">profile.</h1>
+        </mat-card-header>
+        <mat-card-content>
+
+          <!-- First Name -->
+          <div class="row mb-3 mt-4">
+
+            <div class="col-4">
+              <label class="form-label">First Name</label>
+            </div>
+
+            <div class="col-8">
+              <input type="text" class="form-control" id="first_name" formControlName = "first_name" >
+            </div>
+
+
+          </div>
+          <div class="error" *ngIf="profileFormGroup.get('first_name')?.invalid">
+            <small *ngIf="profileFormGroup.get('first_name')?.errors?.['required']">First Name is
+            Required</small>
+          </div>
+
+          <!-- Last Name -->
+          <div class=" mb-3">
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="form-label">Last Name</label>
+              </div>
+              <div class="col-8">
+                <input type="text" class="form-control" id="last_name" formControlName = "last_name" >
+              </div>
+
+            </div>
+          </div>
+          <div class="error" *ngIf="profileFormGroup.get('last_name')?.invalid">
+            <small *ngIf="profileFormGroup.get('last_name')?.errors?.['required']">Last Name is Required</small>
+          </div>
+
+          <!-- Age -->
+          <div class="mb-3">
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="form-label">Age</label>
+              </div>
+              <div class="col-8">
+                <input type="text" class="form-control" id="age" formControlName = "age" >
+              </div>
+
+
+            </div>
+          </div>
+          <div class="error" *ngIf="profileFormGroup.get('age')?.invalid">
+            <small *ngIf="profileFormGroup.get('age')?.errors?.['required']">Age is Required</small>
+            <!-- <small>Invalid Age</small> -->
+
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <div class="row mb-3">
+
+              <div class="col-4">
+                <label class="form-label">Email</label>
+              </div>
+              <div class="col-8">
+                <input type="text" class="form-control" id="email" formControlName = "email" >
+              </div>
+
+
+            </div>
+          </div>
+          <div class="error" *ngIf="profileFormGroup.get('email')?.invalid">
+            <small *ngIf="profileFormGroup.get('email')?.errors?.['required']">Email Required</small>
+            <!-- <small >Invalid Email</small> -->
+          </div>
+
+          <!--  Password -->
+          <div class="mb-3">
+            <div class="row mb-3">
+
+              <div class="col-4">
+                <label class="form-label">Password</label>
+              </div>
+              <div class="col-8">
+                <input type="text" class="form-control" id="password" formControlName = "password" >
+              </div>
+
+            </div>
+          </div>
+          <div class="error" *ngIf="profileFormGroup.get('password')?.invalid">
+            <small *ngIf="profileFormGroup.get('password')?.errors?.['required']">Password Required</small>
+            <!-- <small >Invalid Password</small> -->
+          </div>
+
+
+          <button class="btn btn-primary" type="submit">Update Profile</button>
+        </mat-card-content>
+      </mat-card>
+
+
+    </form>
+  </div>
+
+</div>
+
+<div>
+  <h1>
+    Data to Display
+  </h1>
+
+  <ul>
+    <li *ngFor="let number of origialData  | evenNumbers">
+      {{number}}
+    </li>
+  </ul>
+  
+</div>

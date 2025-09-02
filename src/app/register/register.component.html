@@ -1,75 +1,86 @@
-<div class="row mt-5">
+<div class="row mt-4">
+  <div class="offset-lg-3 col-4">
+    <h1 class="title">let's chat.</h1>
+  </div>
+
+</div>
+
+<div class="row  mt-4">
   
     <div class="offset-lg-3 col-4">
       
-      <form [formGroup] = "registerFrom" *ngIf = "registerFrom" (ngSubmit)="validation()">
-        <h1 class="header ">Registration</h1>
-        <div class="mb-3 mt-4">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-control" id="f_name" formControlName = "f_name" >
-        </div>
-<div class="error" *ngIf = "registerFrom.get('f_name')?.invalid && registerFrom.get('f_name')?.touched">
-<small *ngIf = "registerFrom.get('f_name')?.errors?.['required']">First Name is Required</small>
-</div>
-        <div class="mb-3">
-            <div class="mb-3">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="l_name" formControlName = "l_name" >
-              </div>
-        </div>
-        <div class="error" *ngIf = "registerFrom.get('l_name')?.invalid && registerFrom.get('l_name')?.touched">
-            <small *ngIf = "registerFrom.get('l_name')?.errors?.['required']">Last Name is Required</small>
+      <form  [formGroup] = "registerFrom" *ngIf = "registerFrom" (ngSubmit)="validation()">
+        <mat-card class="form-shadow">
+          <mat-card-header>
+            <h1 class="header ">create new account.</h1>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="mb-3 mt-4">
+              <label class="form-label" >First Name</label>
+              <input type="text" class="form-control" id="f_name" formControlName = "f_name" >
             </div>
-        <div class="mb-3">
+    <div class="error" *ngIf = "registerFrom.get('f_name')?.invalid && registerFrom.get('f_name')?.touched">
+    <small *ngIf = "registerFrom.get('f_name')?.errors?.['required']">First Name is Required</small>
+    </div>
             <div class="mb-3">
-                <label class="form-label">Age</label>
-                <input type="text" class="form-control" id="age" formControlName = "age" >
-              </div>
-        </div>
-        <div class="error" *ngIf = "registerFrom.get('age')?.invalid && registerFrom.get('age')?.touched">
-            <small *ngIf = "registerFrom.get('age')?.hasError?.('required')">Age is Required</small>
-            <small *ngIf = "registerFrom.get('age')?.hasError?.('pattern')">Invalid Age</small>
-           
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="l_name" formControlName = "l_name" >
+                  </div>
             </div>
-        <div class="mb-3">
+            <div class="error" *ngIf = "registerFrom.get('l_name')?.invalid && registerFrom.get('l_name')?.touched">
+                <small *ngIf = "registerFrom.get('l_name')?.errors?.['required']">Last Name is Required</small>
+                </div>
             <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="text" class="form-control" id="register_email" formControlName = "register_email" >
-              </div>
-        </div>
-        <div class="error" *ngIf = " registerFrom.get('register_email')?.invalid && registerFrom.get('register_email')?.touched ">
-          <small *ngIf = "registerFrom.get('register_email')?.hasError?.('required')">Email Required</small>
-          <small *ngIf = "registerFrom.get('register_email')?.hasError?.('pattern')">Invalid Email</small>
-        </div>
-        <div class="error" class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="text" class="form-control" id="age" formControlName = "age" >
+                  </div>
+            </div>
+            <div class="error" *ngIf = "registerFrom.get('age')?.invalid && registerFrom.get('age')?.touched">
+                <small *ngIf = "registerFrom.get('age')?.hasError?.('required')">Age is Required</small>
+                <small *ngIf = "registerFrom.get('age')?.hasError?.('pattern')">Invalid Age</small>
+               
+                </div>
             <div class="mb-3">
-                <label class="form-label">New Password</label>
-                <input type="password" class="form-control" id="register_password" formControlName = "register_password" >
-              </div>
-        </div>
-        <div class="error" *ngIf = " registerFrom.get('register_password')?.invalid && registerFrom.get('register_password')?.touched ">
-          <small *ngIf = "registerFrom.get('register_password')?.hasError?.('required')">New Password Required</small>
-          <small *ngIf = "registerFrom.get('register_password')?.hasError?.('pattern')">Invalid Password</small>
-        </div>
-        <div class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" id="register_email" formControlName = "register_email" >
+                  </div>
+            </div>
+            <div class="error" *ngIf = " registerFrom.get('register_email')?.invalid && registerFrom.get('register_email')?.touched ">
+              <small *ngIf = "registerFrom.get('register_email')?.hasError?.('required')">Email Required</small>
+              <small *ngIf = "registerFrom.get('register_email')?.hasError?.('pattern')">Invalid Email</small>
+            </div>
+            <div class="error" class="mb-3">
+                <div class="mb-3">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="register_password" formControlName = "register_password" >
+                  </div>
+            </div>
+            <div class="error" *ngIf = " registerFrom.get('register_password')?.invalid && registerFrom.get('register_password')?.touched ">
+              <small *ngIf = "registerFrom.get('register_password')?.hasError?.('required')">New Password Required</small>
+              <small *ngIf = "registerFrom.get('register_password')?.hasError?.('pattern')">Invalid Password</small>
+            </div>
             <div class="mb-3">
-                <label class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="register_CONpassword" formControlName = "register_CONpassword" >
-              </div>
-        </div>
-        <div class="error" *ngIf = " registerFrom.get('register_CONpassword')?.invalid && registerFrom.get('register_CONpassword')?.touched ">
-          <small *ngIf = "registerFrom.get('register_CONpassword')?.hasError?.('required')">confirm Password Required</small>
-          <small *ngIf = "registerFrom.get('register_CONpassword')?.hasError?.('passwordMismatch') && !registerFrom.get('register_CONpassword')?.hasError?.('required') ">Password did not Match</small>
-        </div>
-        <button class="btn btn-primary" type="submit"  [disabled]="this.registerFrom.invalid">Sign up</button>
+                <div class="mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="register_CONpassword" formControlName = "register_CONpassword" >
+                  </div>
+            </div>
+            <div class="error" *ngIf = " registerFrom.get('register_CONpassword')?.invalid && registerFrom.get('register_CONpassword')?.touched ">
+              <small *ngIf = "registerFrom.get('register_CONpassword')?.hasError?.('required')">confirm Password Required</small>
+              <small *ngIf = "registerFrom.get('register_CONpassword')?.hasError?.('passwordMismatch') && !registerFrom.get('register_CONpassword')?.hasError?.('required') ">Password did not Match</small>
+            </div>
+
+            <button class="btn btn-primary" type="submit"  [disabled]="this.registerFrom.invalid">Sign up</button>
+          </mat-card-content>
+        </mat-card>
+      
+      
       </form>
     </div>
   
   </div>
   
-  <ul *ngIf="post$ | async as posts">
-    <li *ngFor="let post of posts">
-      {{ post.title }}
-    </li>
-  </ul>
 

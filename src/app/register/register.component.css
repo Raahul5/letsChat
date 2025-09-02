@@ -12,3 +12,13 @@
     font-weight: 800;
     font-style: normal;
 }
+.title{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 70px;
+
+}
+.form-shadow{
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}

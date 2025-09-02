@@ -1,1 +1,15 @@
-<p>practice works!</p>
+<div>
+    <h1>Lets Practice</h1>
+
+    <h1>Attribute Directive</h1> 
+
+    <button (click)="changeColor()">
+        <h1>Click to Change Color</h1>
+    </button>
+  <h1 *ngIf="isSuccess">Text Visibility Check</h1>
+    <h1 [ngClass]="{'text-success' : isSuccess, 'text-failure': !isSuccess }">
+        This is Attribute Directice
+    </h1>
+
+   
+</div>

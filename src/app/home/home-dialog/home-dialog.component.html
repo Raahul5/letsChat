@@ -41,15 +41,12 @@
                 <div class="row mt-3">
 
                     <textarea class="custom-textbox custom-textbox:focus" matInput
-                        placeholder="Write a post to share..."></textarea>
-
-
+                        placeholder="Write a post to share..." [(ngModel)]="this.postdescription" ></textarea>
                 </div>
             </mat-card-content>
         </mat-card>
         <div class="row mt-4">
             <mat-dialog-actions>
-                <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">Upload</button>
                 <button type="button" class="pill-btn" mat-raised-button (click)="onNoClick()">post</button>
             </mat-dialog-actions>
         </div>

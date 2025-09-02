@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PostCommentsBottomSheetComponent } from './post-comments-bottom-sheet/post-comments-bottom-sheet.component';
 import { SampleComponent } from './sample/sample.component';
+import {MatSelectModule} from '@angular/material/select';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -34,7 +36,8 @@ import { SampleComponent } from './sample/sample.component';
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatSelectModule
   ]
 })
 export class HomeModule { }

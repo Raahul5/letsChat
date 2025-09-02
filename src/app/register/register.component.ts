@@ -7,33 +7,35 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { confrimPasswordMaatching } from '../validations';
 import { MainService } from '../main.service'
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {selectPost, selectPostState} from '../store/selectors/post.selector'
-import {post} from '../store/model/post.model'
+import {selectPost} from '../store/selectors/post.selector'
+import {Post} from '../store/model/post.model'
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { postState } from '../store/reducers/post.reducers';
+import { PostState } from '../store/reducers/post.reducers';
+import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,MatCardModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-  post$:Observable<post[]>
+  post$:Observable<Post[]>
 
 
   constructor(
-    private registerFromBuilder: FormBuilder,
-    private apiservice: MainService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private route : ActivatedRoute,
-    private store:Store<postState>
+    public registerFromBuilder: FormBuilder,
+    private readonly apiservice: MainService,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
+   
+    private readonly store:Store<PostState>
   ) { 
     this.post$= this.store.pipe(select(selectPost))
   }
@@ -41,12 +43,12 @@ export class RegisterComponent implements OnInit {
 
 
   registerFrom: FormGroup;
-  age_pattern: String = '';
+  age_pattern: string = '';
   islogged: boolean = false
 
 
   ngOnInit(): void {
-console.log(this.route.snapshot.paramMap.get('id'));
+
     this.post$.subscribe(posts => {
       console.log("Selector post", posts);
     });
@@ -80,8 +82,17 @@ console.log(this.route.snapshot.paramMap.get('id'));
 
   validation() {
     if (this.registerFrom.valid) {
+
+      let obj = {
+        firstname:this.registerFrom.value.f_name,
+        lastname:this.registerFrom.value.l_name,
+        age:this.registerFrom.value.age,
+        email:this.registerFrom.value.register_email,
+        password:this.registerFrom.value.register_CONpassword
+      }
+      console.log(obj)
       this.apiservice
-        .postData(this.registerFrom.value, '/user/register')
+        .postData(obj, '/user/register')
         .subscribe((response) => {
 
           if (response.status) {

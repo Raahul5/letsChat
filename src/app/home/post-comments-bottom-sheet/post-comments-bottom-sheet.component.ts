@@ -8,9 +8,9 @@ import  {MainService} from '../../main.service'
   styleUrl: './post-comments-bottom-sheet.component.css',
 })
 export class PostCommentsBottomSheetComponent implements OnInit, OnDestroy{
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any, private postService:MainService) {}
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any, private readonly postService:MainService) {}
   ngOnInit(): void {
-    this.postService.getComments('/home/allcomments').subscribe((response)=>{
+    this.postService.getSomeData('/home/allcomments').subscribe((response)=>{
       if(response.status){
         this.comments_array = response.comments
       }

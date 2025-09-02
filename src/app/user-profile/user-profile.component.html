@@ -1,0 +1,15 @@
+<div class="cover-container">
+  <img [src]="(croppedImageUrl | async) || '../assets/default-cover.jpg'" class="cover-image" alt="CoverFile" />
+  <button class="update-button" (click)="openModel()">Update Cover Pic</button>
+
+  <div class="profile-pic-wrapper">
+    <div style="position: relative; display: inline-block;">
+      <img [src]="(profileImageUrl | async) || '../assets/display.jpg'" class="profile-pic" />
+
+      <button mat-icon-button class="profile-update-button" (click)="openProfileModel()"
+        matTooltip="Change Profile Photo">
+        <mat-icon>photo_camera</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

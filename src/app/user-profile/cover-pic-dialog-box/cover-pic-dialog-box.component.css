@@ -1,0 +1,87 @@
+.upload-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: #f4f4f4;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 20px 0;
+}
+
+.upload-box {
+  text-align: center;
+  color: #333;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.upload-box h1 {
+  font-size: 24px;
+  margin: 10px 0 5px;
+}
+
+.upload-box p {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+}
+
+.cropper-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+.cropper-img {
+  max-width: 100%;
+  max-height: 400px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+.action-buttons {
+  margin-top: 10px;
+}
+button {
+  margin: 5px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+.colorful-button {
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.colorful-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(100, 150, 250, 0.5);
+}
+
+.colorful-button:active {
+  transform: scale(0.97);
+}
+
+/* Apply button - green */
+.apply-button {
+  background-color: #28a745;
+}
+
+.apply-button:hover {
+  background-color: #218838;
+}
+
+/* Cancel button - red */
+.cancel-button {
+  background-color: #dc3545;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}

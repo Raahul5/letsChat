@@ -1,20 +1,24 @@
 import {createReducer, on} from '@ngrx/store'
 import * as userAction from '../action/post.action'
 
-export interface userState{
-    id:string,
-    userName:string,
+export interface UserState{
+    id:string|null,
+    username:string,
+    userEmail:string,
+    userProfileImgString:string,
+    userCoverImgString:string,
     loginStatus:boolean,
-    token:string,
     loading:boolean,
     error:string|null
 } 
 
-export const initialState:userState = {
+export const initialState:UserState = {
     id:'',
-    userName:'',
+    username:'',
+    userEmail:'',
+    userProfileImgString:'',
+    userCoverImgString:'',
     loginStatus:false,
-    token:'',
     loading:false,
     error:null
 }
@@ -25,10 +29,12 @@ export const userReducer = createReducer(
     on(userAction.loadUser, (state)=>({...state,loading:true,error:null})),
     on(userAction.setUserID,(state,{id})=>({...state,id})),
     on(userAction.loadUserFailure,(state,{error})=>({...state, loading:false, error})),
-    on(userAction.loadUserSuccess,(state, {userName,token,loginStatus} )=>(
+    on(userAction.loadUserSuccess,(state, {username,userProfileImgString,userCoverImgString,loginStatus,userEmail} )=>(
         {...state,
-            userName, 
-            token, 
-            loginStatus}
+            username, 
+            userProfileImgString,
+            userCoverImgString,
+            loginStatus,
+            userEmail}
     ))
 )

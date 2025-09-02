@@ -4,10 +4,17 @@ import {HomeComponent} from '../home/home.component'
 import { PostCommentsBottomSheetComponent } from './post-comments-bottom-sheet/post-comments-bottom-sheet.component';
 import { HomeDialogComponent } from './home-dialog/home-dialog.component';
 import { SampleComponent } from './sample/sample.component';
+import { authGuard } from '../auth.guard';
 
 const routes: Routes = [
-  {path:'', component:HomeComponent },
-  {path:'sample', component:SampleComponent }
+  {path:'', component:HomeComponent,
+    children:[
+      {path:'sample', component:SampleComponent } 
+    ],canActivate:[authGuard],
+        data:{role:'USER'}
+   },
+  
+  
 ];
 
 @NgModule({
